@@ -8,7 +8,22 @@ AppDataSource.initialize()
     const app = express();
     const port = 5000;
 
-    app.use(cors());
+    app.use(
+      cors({
+        credentials: true,
+        origin: "*",
+        methods: ["GET", "POST", "PATCH", "DELETE"],
+        allowedHeaders: ["Origin", "Content-Type", "Authorization", "Accept"],
+        preflightContinue: true,
+      })
+    );
+
+    app.get("/", (req, res) => {
+      res.send("Hello, World! Express on Railways!");
+    });
+
+
+    app.use(express.json());
     app.use(express.json());
     app.use("/api/v1", router); //group route
 
