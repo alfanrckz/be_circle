@@ -4,7 +4,8 @@ import Authservice from "../services/AuthServices";
 export default new (class AuthController {
   async register(req: Request, res: Response) {
     try {
-      // console.log(req.body);
+      console.log(req.body);
+      console.log("Request received at /register");
       const response = await Authservice.register(req.body);
       return res.status(200).json(response);
     } catch (error) {
