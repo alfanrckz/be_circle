@@ -27,6 +27,11 @@ AppDataSource.initialize()
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(express.json());
+
+    app.use((req, res, next) => {
+      console.log(`Received ${req.method} request for ${req.url}`);
+      next();
+    });
     app.use("/api/v1", router); //group route
 
     app.listen(port, () => {
