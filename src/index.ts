@@ -2,6 +2,7 @@ import { AppDataSource } from "./data-source";
 import * as express from "express";
 import * as cors from "cors";
 import router from "./route";
+const bodyParser = require('body-parser');
 
 AppDataSource.initialize()
   .then(async () => {
@@ -23,8 +24,9 @@ AppDataSource.initialize()
     });
 
 
+    app.use(bodyParser.json({ limit: '10mb' }));
+    app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
     app.use("/api/v1", router); //group route
 
     app.listen(port, () => {
